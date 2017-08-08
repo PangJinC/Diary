@@ -21,7 +21,6 @@ import cjx.com.diary.mode.weight.BodyWeightBeanDao;
 public class WeightUtils {
     /**
      * 获取所有数据列表
-     *
      * @return
      */
     public static List<BodyWeightBean> getWeightList() {
@@ -79,7 +78,7 @@ public class WeightUtils {
     public static String TYPE_NIGHT = "type_night";
 
     private static final String[] weeks = new String[]{
-            "周日", "周一", "周二", "周三", "周四", "周五"
+            "周日", "周一", "周二", "周三", "周四", "周五","週六"
     };
 
     public static final IAxisValueFormatter formatter = (value, axis) -> weeks[Integer.valueOf((int) value)];

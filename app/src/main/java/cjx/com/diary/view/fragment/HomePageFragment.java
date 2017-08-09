@@ -69,7 +69,6 @@ public class HomePageFragment extends BaseFragment {
         return new HomePageFragment();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_homepage, container, false);

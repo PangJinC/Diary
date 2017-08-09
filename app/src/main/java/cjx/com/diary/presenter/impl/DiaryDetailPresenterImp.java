@@ -23,7 +23,6 @@ public class DiaryDetailPresenterImp extends MyPresenterImpl implements DiaryDet
         return isSuccess;
     }
 
-
     @Override
     public boolean save(Diary diary) {
         boolean isSuccess= DiaryUtils.addDiary(diary);
@@ -32,7 +31,6 @@ public class DiaryDetailPresenterImp extends MyPresenterImpl implements DiaryDet
         }
         return isSuccess;
     }
-
 
     @Override
     public boolean update(Diary diary) {

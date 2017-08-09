@@ -32,6 +32,8 @@ public class DiaryPreviewFrag extends BaseFragment {
     TextView mDateTv;
     @BindView(R.id.et_content)
     TextView mContentEt;
+
+    private String id;
     Unbinder unbinder;
     private DiaryDetailPresenterImp mPresenter;
 
@@ -41,7 +43,6 @@ public class DiaryPreviewFrag extends BaseFragment {
         return frag;
     }
 
-    private String id;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,23 +62,23 @@ public class DiaryPreviewFrag extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //界面跳转过来后即用id查詢日記記錄并顯示
+        Diary diary_id=mPresenter.query(id);
+        if(diary_id!=null){
+            mTitleEt.setText(diary_id.title);
+            mContentEt.setText(diary_id.content);
+            mDateTv.setText(diary_id.createDate);
+        }
+        //綁定“保存”按鈕和事件
         TextView saveTv=((DiaryDetailActivity)mActivity).getRightTv();
         saveTv.setText("保存");
         saveTv.setOnClickListener((view1)->{
-            Diary diary = getCurrentDiary();
-            if(mPresenter.update(diary)){
+            if(mPresenter.update(getCurrentDiary())){
                 Utils.showToast(mActivity,"修改成功！");
+                mActivity.finish();
             }
         });
-        Diary diary=mPresenter.query(id);
-        if(diary!=null){
-            mTitleEt.setText(diary.title);
-            mContentEt.setText(diary.content);
-            mDateTv.setText(diary.createDate);
-        }
     }
-
 
     @NonNull
     private Diary getCurrentDiary() {
@@ -89,23 +90,16 @@ public class DiaryPreviewFrag extends BaseFragment {
         return diary;
     }
 
-    /**
-     * 获取标题
-     *
-     * @return
-     */
+    //获取标题
     private String getTitle() {
         return mTitleEt.getText().toString().trim();
     }
 
-    /**
-     * 获取内容
-     *
-     * @return
-     */
+    //获取内容
     private String getContent() {
         return mContentEt.getText().toString().trim();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

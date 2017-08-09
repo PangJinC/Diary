@@ -14,9 +14,8 @@ import cjx.com.diary.presenter.impl.SplashPresenterImpl;
 import cjx.com.diary.view.SplashView;
 
 /**
- * Created by bear on 2017/4/17.
+ *Created by bear on 2017/4/17.
  */
-
 public class SplashActivity extends BaseActivity implements SplashView {
     @BindView(R.id.btn_skip)
     Button mSkipBtn;
@@ -43,7 +42,6 @@ public class SplashActivity extends BaseActivity implements SplashView {
         MainActivity.action(mActivity);
         finish();
     }
-
 
     @Override
     protected void onDestroy() {

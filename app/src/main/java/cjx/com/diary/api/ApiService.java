@@ -6,9 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author: bear
- *
  * @Description: HttpServer
- *
  * @date: 2017/5/10
  */
 

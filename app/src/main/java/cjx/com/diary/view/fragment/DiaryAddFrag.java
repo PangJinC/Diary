@@ -77,32 +77,28 @@ public class DiaryAddFrag extends BaseFragment {
                 mTitleEt.requestFocus();
                 return;
             }
-            Diary diary = new Diary();
-            diary.title = getTitle();
-            diary.content = getContent();
-            diary.createDate = DateUtils.getCurrentTime();
-            diary.uid = UUID.randomUUID().toString();
-            if (mPresenter.save(diary)) {
+            if (mPresenter.save(getCurrentDiary())) {
                 Utils.showToast(mActivity, "添加成功！");
                 mActivity.finish();
             }
         });
     }
 
-    /**
-     * 获取标题
-     *
-     * @return
-     */
+    private Diary getCurrentDiary(){
+        Diary diary = new Diary();
+        diary.title = getTitle();
+        diary.content = getContent();
+        diary.createDate = DateUtils.getCurrentTime();
+        diary.uid = UUID.randomUUID().toString();
+        return  diary;
+    }
+
+    //获取标题
     private String getTitle() {
         return mTitleEt.getText().toString().trim();
     }
 
-    /**
-     * 获取内容
-     *
-     * @return
-     */
+    //获取内容
     private String getContent() {
         return mContentTV.getText().toString().trim();
     }

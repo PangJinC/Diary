@@ -42,8 +42,8 @@ class WeightManagerFragment : BaseFragment() {
         tv_today.text = "今日(" + DateUtils.getCurrentDate() + ")"
         tv_update.setOnClickListener {
             updateData()
+            showChart()
         }
-        showChart()
     }
 
     fun updateData() {

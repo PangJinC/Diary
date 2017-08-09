@@ -17,8 +17,6 @@ import cjx.com.diary.view.activity.SplashActivity;
  */
 
 public class SplashPresenterImpl extends MyPresenterImpl implements SplashPresenter {
-
-
     @Override
     public void setData() {
         //创建用户信息
@@ -34,7 +32,7 @@ public class SplashPresenterImpl extends MyPresenterImpl implements SplashPresen
         UserBeanDao.createTable(dao.getDatabase(), true);
         QueryBuilder queryBuilder = dao.queryBuilder();
         List<UserBean> list = queryBuilder.where(UserBeanDao.Properties.Account.eq("18262282215")).list();
-        if (list == null || (list != null && list.size() == 0)) {
+        if (list == null || list.size() == 0) {
             dao.insert(userBean);
         }
         mTimer.start();

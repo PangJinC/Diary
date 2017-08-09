@@ -20,13 +20,9 @@ import cjx.com.diary.view.fragment.DiaryPreviewFrag;
  * Created date:  2017/5/11.
  */
 public class DiaryDetailActivity extends BaseActivity {
-    /**
-     * 预览动作
-     */
+    //预览动作
     public static final int ACTION_PREVIEW = 0x101;
-    /**
-     * 添加动作
-     */
+    //添加动作
     public static final int ACTION_ADD = 0x103;
     @BindView(R.id.tv_extend)
     TextView mSaveTv;
@@ -36,12 +32,7 @@ public class DiaryDetailActivity extends BaseActivity {
 
     Fragment mFragment;
 
-    /**
-     * 预览日记
-     *
-     * @param context 上下文
-     * @param diaryId 日记ID
-     */
+    //预览日记
     public static void previewDiary(Context context,String diaryId) {
         Intent intent = new Intent(context, DiaryDetailActivity.class);
         intent.putExtra("action", ACTION_PREVIEW);
@@ -55,11 +46,8 @@ public class DiaryDetailActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    /**
-     * 当前的action
-     */
+    //当前的action
     private int mAction;
-
     private String id;
 
     @Override
@@ -73,9 +61,7 @@ public class DiaryDetailActivity extends BaseActivity {
         initViewByAction();
     }
 
-    /**
-     * 根据action设置view
-     */
+    //根据action设置view
     private void initViewByAction() {
         if (mAction == ACTION_ADD) {
             initAddView();

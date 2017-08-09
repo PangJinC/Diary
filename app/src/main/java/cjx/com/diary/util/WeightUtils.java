@@ -21,7 +21,6 @@ import cjx.com.diary.mode.weight.BodyWeightBeanDao;
 public class WeightUtils {
     /**
      * 获取所有数据列表
-     *
      * @return
      */
     public static List<BodyWeightBean> getWeightList() {
@@ -44,7 +43,7 @@ public class WeightUtils {
             BodyWeightBeanDao dao = daoSession.getBodyWeightBeanDao();
             if (dao != null) {
                 List<BodyWeightBean> tem = dao.queryBuilder().where(BodyWeightBeanDao.Properties.CreatedDate.eq(bodyWeightBean.createdDate)).list();
-                if (tem != null && tem.size() == 1) {
+                if (tem != null && tem.size() > 0) {
                     BodyWeightBean curBodyBean = tem.get(0);
                     if (!TextUtils.isEmpty(bodyWeightBean.morningWeight)) {
                         curBodyBean.morningWeight = bodyWeightBean.morningWeight;

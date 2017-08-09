@@ -24,12 +24,5 @@ public class MyOpenHelper extends DaoMaster.DevOpenHelper {
     }
 
     @Override
-    public void onUpgrade(Database db, int oldVersion, int newVersion) {
-       /*此处不用super，因为父类中包含了
-       dropAllTables(db, true);
-        onCreate(db);
-        需要自己定制升级
-        */
-//       MigrationHelper.getInstance().dropAndCreate(db);
-    }
+    public void onUpgrade(Database db, int oldVersion, int newVersion) {}
 }

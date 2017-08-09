@@ -10,40 +10,46 @@ import org.greenrobot.greendao.annotation.Index;
  * author: bear .
  * Created date:  2017/7/24.
  */
-@Entity(indexes = {
-        @Index(value = "createdDate",unique = true)
-})
+@Entity(indexes = {@Index(value = "createdDate", unique = true)})
 public class BodyWeightBean {
+    @Id
     public String morningWeight;
     public String nightWeight;
-    @Id
     public String createdDate;
-@Generated(hash = 1186850918)
-public BodyWeightBean(String morningWeight, String nightWeight,
-        String createdDate) {
-    this.morningWeight = morningWeight;
-    this.nightWeight = nightWeight;
-    this.createdDate = createdDate;
-}
-@Generated(hash = 413317410)
-public BodyWeightBean() {
-}
-public String getMorningWeight() {
-    return this.morningWeight;
-}
-public void setMorningWeight(String morningWeight) {
-    this.morningWeight = morningWeight;
-}
-public String getNightWeight() {
-    return this.nightWeight;
-}
-public void setNightWeight(String nightWeight) {
-    this.nightWeight = nightWeight;
-}
-public String getCreatedDate() {
-    return this.createdDate;
-}
-public void setCreatedDate(String createdDate) {
-    this.createdDate = createdDate;
-}
+
+    @Generated(hash = 1186850918)
+    public BodyWeightBean(String morningWeight, String nightWeight,
+                          String createdDate) {
+        this.morningWeight = morningWeight;
+        this.nightWeight = nightWeight;
+        this.createdDate = createdDate;
     }
+
+    @Generated(hash = 413317410)
+    public BodyWeightBean() {
+    }
+
+    public String getMorningWeight() {
+        return this.morningWeight;
+    }
+
+    public void setMorningWeight(String morningWeight) {
+        this.morningWeight = morningWeight;
+    }
+
+    public String getNightWeight() {
+        return this.nightWeight;
+    }
+
+    public void setNightWeight(String nightWeight) {
+        this.nightWeight = nightWeight;
+    }
+
+    public String getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+}

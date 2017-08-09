@@ -16,13 +16,8 @@ import cjx.com.diary.mode.diary.DiaryDao;
  * @Description: 日记相关工具类
  * @date: 2017/5/10
  **/
-
 public class DiaryUtils {
-    /**
-     * 获取日记列表
-     *
-     * @return
-     */
+    //获取日记列表
     public static List<Diary> getDiaryList() {
         List<Diary> list = new ArrayList<>();
         try {
@@ -35,11 +30,7 @@ public class DiaryUtils {
         return list;
     }
 
-    /**
-     * 添加日记
-     *
-     * @param diary
-     */
+    //添加日记
     public static boolean addDiary(Diary diary) {
         boolean isAddSuccess = false;
         DaoSession dao = MyApplication.INSTANCE.getDaoSession();
@@ -53,12 +44,7 @@ public class DiaryUtils {
     }
 
 
-    /**
-     * 删除日记
-     *
-     * @param diary
-     * @return
-     */
+    //删除日记
     public static boolean delete(Diary diary) {
         boolean isDeleted;
         try {
@@ -73,12 +59,7 @@ public class DiaryUtils {
         return isDeleted;
     }
 
-    /**
-     * 更新日记
-     *
-     * @param diary
-     * @return
-     */
+    //更新日记
     public static boolean update(Diary diary) {
         boolean isUpdate;
         try {
@@ -93,12 +74,7 @@ public class DiaryUtils {
         return isUpdate;
     }
 
-    /**
-     * 根据uid查询对应的日记
-     *
-     * @param uid
-     * @return
-     */
+    //根据uid查询对应的日记
     public static Diary queryDiaryByUid(String uid) {
         DaoSession dao = MyApplication.INSTANCE.getDaoSession();
         DiaryDao diaryDao = dao.getDiaryDao();
@@ -111,12 +87,7 @@ public class DiaryUtils {
         }
     }
 
-    /**
-     * 根据title模糊查询
-     *
-     * @param title
-     * @return
-     */
+    //根据title模糊查询
     public static List<Diary> queryByTitle(String title) {
         if (TextUtils.isEmpty(title)) {
             return getDiaryList();

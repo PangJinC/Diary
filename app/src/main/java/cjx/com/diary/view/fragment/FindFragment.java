@@ -33,7 +33,7 @@ import cjx.com.diary.mode.QiuBaiBean;
 import cjx.com.diary.presenter.impl.FindPresenterImp;
 
 /**
- * Created by bear on 2017/4/27.
+ *Created by bear on 2017/4/27.
  */
 
 public class FindFragment extends BaseFragment {

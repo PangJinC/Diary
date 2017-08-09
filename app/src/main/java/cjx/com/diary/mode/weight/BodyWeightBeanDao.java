@@ -24,9 +24,9 @@ public class BodyWeightBeanDao extends AbstractDao<BodyWeightBean, String> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property MorningWeight = new Property(0, String.class, "morningWeight", false, "MORNING_WEIGHT");
+        public final static Property MorningWeight = new Property(0, String.class, "morningWeight", true, "MORNING_WEIGHT");
         public final static Property NightWeight = new Property(1, String.class, "nightWeight", false, "NIGHT_WEIGHT");
-        public final static Property CreatedDate = new Property(2, String.class, "createdDate", true, "CREATED_DATE");
+        public final static Property CreatedDate = new Property(2, String.class, "createdDate", false, "CREATED_DATE");
     }
 
 
@@ -42,9 +42,9 @@ public class BodyWeightBeanDao extends AbstractDao<BodyWeightBean, String> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"BODY_WEIGHT_BEAN\" (" + //
-                "\"MORNING_WEIGHT\" TEXT," + // 0: morningWeight
+                "\"MORNING_WEIGHT\" TEXT PRIMARY KEY NOT NULL ," + // 0: morningWeight
                 "\"NIGHT_WEIGHT\" TEXT," + // 1: nightWeight
-                "\"CREATED_DATE\" TEXT PRIMARY KEY NOT NULL );"); // 2: createdDate
+                "\"CREATED_DATE\" TEXT);"); // 2: createdDate
         // Add Indexes
         db.execSQL("CREATE UNIQUE INDEX " + constraint + "IDX_BODY_WEIGHT_BEAN_CREATED_DATE ON \"BODY_WEIGHT_BEAN\"" +
                 " (\"CREATED_DATE\" ASC);");
@@ -98,7 +98,7 @@ public class BodyWeightBeanDao extends AbstractDao<BodyWeightBean, String> {
 
     @Override
     public String readKey(Cursor cursor, int offset) {
-        return cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2);
+        return cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0);
     }    
 
     @Override
@@ -120,13 +120,13 @@ public class BodyWeightBeanDao extends AbstractDao<BodyWeightBean, String> {
     
     @Override
     protected final String updateKeyAfterInsert(BodyWeightBean entity, long rowId) {
-        return entity.getCreatedDate();
+        return entity.getMorningWeight();
     }
     
     @Override
     public String getKey(BodyWeightBean entity) {
         if(entity != null) {
-            return entity.getCreatedDate();
+            return entity.getMorningWeight();
         } else {
             return null;
         }
@@ -134,7 +134,7 @@ public class BodyWeightBeanDao extends AbstractDao<BodyWeightBean, String> {
 
     @Override
     public boolean hasKey(BodyWeightBean entity) {
-        return entity.getCreatedDate() != null;
+        return entity.getMorningWeight() != null;
     }
 
     @Override

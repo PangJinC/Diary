@@ -38,26 +38,22 @@ public class WeightUtils {
     }
 
     public static void insert(BodyWeightBean bodyWeightBean) {
-        try {
-            DaoSession daoSession = MyApplication.INSTANCE.getDaoSession();
-            BodyWeightBeanDao dao = daoSession.getBodyWeightBeanDao();
-            if (dao != null) {
-                List<BodyWeightBean> tem = dao.queryBuilder().where(BodyWeightBeanDao.Properties.CreatedDate.eq(bodyWeightBean.createdDate)).list();
-                if (tem != null && tem.size() > 0) {
-                    BodyWeightBean curBodyBean = tem.get(0);
-                    if (!TextUtils.isEmpty(bodyWeightBean.morningWeight)) {
-                        curBodyBean.morningWeight = bodyWeightBean.morningWeight;
-                    }
-                    if (!TextUtils.isEmpty(bodyWeightBean.nightWeight)) {
-                        curBodyBean.nightWeight = bodyWeightBean.nightWeight;
-                    }
-                    upDate(curBodyBean);
-                } else {
-                    dao.insert(bodyWeightBean);
+        DaoSession daoSession = MyApplication.INSTANCE.getDaoSession();
+        BodyWeightBeanDao dao = daoSession.getBodyWeightBeanDao();
+        if (dao != null ) {
+            List<BodyWeightBean> tem = dao.queryBuilder().where(BodyWeightBeanDao.Properties.CreatedDate.eq(bodyWeightBean.createdDate)).list();
+            if (tem != null && tem.size() > 0) {
+                BodyWeightBean curBodyBean = tem.get(0);
+                if (!TextUtils.isEmpty(bodyWeightBean.morningWeight)) {
+                    curBodyBean.morningWeight = bodyWeightBean.morningWeight;
                 }
+                if (!TextUtils.isEmpty(bodyWeightBean.nightWeight)) {
+                    curBodyBean.nightWeight = bodyWeightBean.nightWeight;
+                }
+                upDate(curBodyBean);
+            } else {
+                dao.insert(bodyWeightBean);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

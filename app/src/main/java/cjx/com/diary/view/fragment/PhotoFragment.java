@@ -3,6 +3,7 @@ package cjx.com.diary.view.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,14 +48,12 @@ public class PhotoFragment extends BaseFragment {
     SwipeRefreshRecyclerView mSwpRecycleView;
     Unbinder unbinder;
 
-
     MyAdapter adapter;
 
     List<BaiDuImageBean.DataBean> mList = new ArrayList<>();
 
-    int index = 1;
+    int index = 0;
     int curCount = 0;
-    boolean isLoadMore = false;
 
     public static Fragment newInstance() {
         return new PhotoFragment();
@@ -66,37 +64,41 @@ public class PhotoFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frag_photo, container, false);
         unbinder = ButterKnife.bind(this, root);
+        initTitleBar();
+
+        getData();
+        adapter = new MyAdapter(mList);
+        mSwpRecycleView.setAdapter(adapter);
         return root;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initTitleBar();
+
         mSwpRecycleView.setOnRefreshListener(() -> {
-            isLoadMore = false;
-            index = 1;
+            mSwpRecycleView.setRefreshing(true);
             mList.clear();
+            index = 0;
             adapter.notifyDataSetChanged();
             getData();
         });
-        adapter = new MyAdapter(mList);
-        adapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> ImageDetailActivity.action(mActivity, mList.get(i).abs, mList.get(i).image_url));
-        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         adapter.setOnLoadMoreListener(() -> {
             mSwpRecycleView.setRefreshing(false);
-            isLoadMore = true;
-            index += 1;
             getData();
         }, mSwpRecycleView.recyclerView);
         adapter.setLoadMoreView(new CustomLoadMoreView());
-        mSwpRecycleView.setAdapter(adapter);
-        getData();
+
+        adapter.setOnItemClickListener(
+                (baseQuickAdapter, view1, i) -> ImageDetailActivity
+                        .action(mActivity, mList.get(i).abs, mList.get(i).image_url));
     }
 
     private void getData() {
         curCount = mList.size();
-        ApiService.getApiService().getBaiDuImage(index - 1, "美女", "全部")
+        ApiService.getApiService().getBaiDuImage(index, "美女", "全部")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(baiDuImageBean -> baiDuImageBean)
@@ -106,9 +108,14 @@ public class PhotoFragment extends BaseFragment {
                         if (curCount >= baiDuImageBean.totalNum) {
                             adapter.loadMoreEnd(true);
                         }
-                        if (baiDuImageBean != null && baiDuImageBean.data != null) {
-                            adapter.addData(baiDuImageBean.data);
-                            curCount = adapter.getData().size();
+                        if (baiDuImageBean.data != null) {
+                            for (BaiDuImageBean.DataBean dataBean : baiDuImageBean.data) {
+                                mList.add(dataBean);
+                            }
+                            mList.remove(mList.size()-1);
+                            curCount = mList.size();
+                            index += 10;
+                            Log.e("curCount", curCount + "　：　" + index + "");
                             adapter.loadMoreComplete();
                         }
                     }

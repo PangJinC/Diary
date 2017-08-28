@@ -39,7 +39,7 @@ class WeightManagerFragment : BaseFragment() {
             WeightUtils.clearData()
             showChart()
         }
-        tv_today.text = "今日(" + DateUtils.getCurrentDate() + ")"
+        tv_today.text = String.format(getString(R.string.today), DateUtils.getCurrentDate())
         tv_update.setOnClickListener {
             updateData()
             showChart()

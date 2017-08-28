@@ -18,8 +18,7 @@ public class BodyWeightBean {
     public String createdDate;
 
     @Generated(hash = 1186850918)
-    public BodyWeightBean(String morningWeight, String nightWeight,
-                          String createdDate) {
+    public BodyWeightBean(String morningWeight, String nightWeight, String createdDate) {
         this.morningWeight = morningWeight;
         this.nightWeight = nightWeight;
         this.createdDate = createdDate;

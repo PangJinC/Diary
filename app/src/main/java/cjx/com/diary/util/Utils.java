@@ -7,9 +7,7 @@ import java.util.UUID;
 
 /**
  * @author: bear
- *
  * @Description: 常用工具类
- *
  * @date: 2017/5/10
  */
 
@@ -25,7 +23,6 @@ public class Utils {
 
     /**
      * 获取随机的ID作为日记的Uid
-     * @return
      */
     public static String getUUID(){
         return UUID.randomUUID().toString();
